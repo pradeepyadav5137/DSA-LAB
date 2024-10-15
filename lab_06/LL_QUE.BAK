@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+void printlinklist(struct node *f) {
+    struct node *ptr = f;
+    while (ptr != NULL) {
+	printf(" %d ->", ptr->data);
+	ptr = ptr->next;
+    }
+    printf(" NULL\n");
+}
+
+void enqueue(struct node **f, struct node **r, int val) {
+    struct node *n = (struct node *)malloc(sizeof(struct node));
+    if (n == NULL) {
+	printf("Queue is full\n");
+    } else {
+	n->data = val;
+	n->next = NULL;
+	if (*f == NULL) {
+	    *f = *r = n;
+	} else {
+	    (*r)->next = n;
+	    *r = n;
+	}
+    }
+}
+
+int dequeue(struct node **f) {
+    int val;
+    struct node *temp = *f;
+    if (temp == NULL) {
+	printf("Queue is empty\n");
+	return -1;
+    } else {
+	val = temp->data;
+	*f = (*f)->next;
+	free(temp);
+	return val;
+    }
+}
+
+int main()
+{
+    int flag = 1;
+    int opt, val, result;
+    struct node *f = NULL;
+    struct node *r= NULL;
+
+
+
+    while (flag)
+    {
+	printf("\nplease chose below option to perform task : \n");
+	printf("1- print queue\n");
+	printf("2- enqueue\n");
+	printf("3- dqueue\n");
+	printf("4- exit\n");
+	printf("enter option : ");
+	scanf("%d", &opt);
+
+	switch (opt)
+	{
+	case 1:
+	    printlinklist(f);
+	    break;
+	case 2:
+	    printf("enter element to enqueue :");
+	    scanf("%d", &val);
+	    enqueue(&f ,&r, val);
+	    break;
+	case 3:
+	    result = dequeue(&f);
+	    if (result != -1)
+	    {
+		printf("successfully deleted : %d", result);
+	    }
+	    else
+		printf("not able to delete");
+	    break;
+
+	case 4:
+	   printf("Exiting.....");
+	    flag = 0;
+	    break;
+	}
+    }
+    clrscr();
+    getch();
+    return 0;
+}
