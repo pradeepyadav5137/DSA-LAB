@@ -28,12 +28,12 @@ void enqueue(struct node **f, char val[], int pi) {
     n->p = pi;
     n->next = NULL;
 
-    // If the queue is empty or the new node has higher priority than the first node
+  
     if (*f == NULL || (*f)->p < pi) {
         n->next = *f;
         *f = n;
     } else {
-        // Find the right place to insert based on priority
+        
         struct node *ptr = *f;
         while (ptr->next != NULL && ptr->next->p >= pi) {
             ptr = ptr->next;
@@ -65,10 +65,10 @@ char* dequeue_last(struct node **f) {
 
     struct node *temp = *f;
   if (temp->next == NULL) {
-       char *val = temp->data; // Store the data to return
-       *f = NULL;               // Update the front to NULL
-       free(temp);              // Free the last node
-       return val;              // Return the data
+       char *val = temp->data; 
+       *f = NULL;              
+       free(temp);             
+       return val;            
     }
     while (temp->next->next!= NULL) {
         temp = temp->next;
